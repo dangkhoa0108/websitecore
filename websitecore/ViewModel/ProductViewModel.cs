@@ -6,8 +6,8 @@ using websitecore.Models;
 
 namespace websitecore.ViewModel
 {
-    public class CategoryViewModel
+    public class ProductViewModel
     {
-        public List<Category> lstCategory { get; set; }
+        public List<Product> lstProduct { get; set; }
     }
 }

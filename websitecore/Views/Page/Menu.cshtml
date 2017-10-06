@@ -19,7 +19,7 @@
                 <ul class="nav navbar-nav">
                     @foreach (var item in Model.lstMenu)
                     {
-                        <li class=""><a href="@Html.Sitecore().">@item.MenuTitle</a></li>
+                        <li class=""><a href="http://sitecore/@item.MenuLink">@item.MenuTitle</a></li>
                     }
                 </ul>
 

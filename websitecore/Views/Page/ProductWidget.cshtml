@@ -1,0 +1,16 @@
+﻿@using Sitecore.Mvc
+@model Sitecore.Mvc.Presentation.RenderingModel
+@{
+    Layout = null;
+}
+
+<div class="product-widget-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            @Html.Sitecore().Placeholder("TopSellProduct")
+            @Html.Sitecore().Placeholder("RecentlyProduct")
+            @Html.Sitecore().Placeholder("TopNewProduct")
+        </div>
+    </div>
+</div> <!-- End product widget area -->

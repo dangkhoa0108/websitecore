@@ -1,4 +1,4 @@
-﻿@model Sitecore.Mvc.Presentation.RenderingModel
+﻿@model websitecore.ViewModel.CategoryViewModel
 @{
     Layout = null;
 }
@@ -6,11 +6,10 @@
     <div class="footer-menu">
         <h2 class="footer-wid-title">Categories</h2>
         <ul>
-            <li><a href="#">Mobile Phone</a></li>
-            <li><a href="#">Home accesseries</a></li>
-            <li><a href="#">LED TV</a></li>
-            <li><a href="#">Computer</a></li>
-            <li><a href="#">Gadets</a></li>
+            @foreach (var item in Model.lstCategory)
+            {
+                <li><a href="#">@item.CategoryName</a></li>
+            }
         </ul>
     </div>
 </div>

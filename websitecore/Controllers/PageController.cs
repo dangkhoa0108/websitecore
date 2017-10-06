@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Sitecore;
 using Sitecore.Data;
 using Sitecore.Data.Items;
+using Sitecore.Resources.Media;
 using websitecore.Models;
 using websitecore.ViewModel;
 
@@ -12,20 +14,53 @@ namespace websitecore.Controllers
 {
     public class PageController : Controller
     {
+        Sitecore.Data.Database context = Sitecore.Context.Database;
         // GET: Page
         public ActionResult Header()
         {
             return View();
         }
 
+        public ActionResult Slider()
+        {
+            return View();
+        }
         public ActionResult TopHeader()
         {
             return View();
         }
 
-        public ActionResult Menu()
+        public ActionResult Promo()
         {
-            Sitecore.Data.Database context = Sitecore.Context.Database;
+            return View();
+        }
+
+        public ActionResult Brand()
+        {
+            return View();
+        }
+
+        public ActionResult ProductWidget()
+        {
+            return View();
+        }
+
+        public ActionResult TopSellProduct()
+        {
+            return View();
+        }
+
+        public ActionResult RecentlyProduct()
+        {
+            return View();
+        }
+
+        public ActionResult TopNewProduct()
+        {
+            return View();
+        }
+        public ActionResult Menu()
+        {          
             Sitecore.Data.Items.Item item = context.Items[new ID("{110D559F-DEA5-42EA-9C1C-8A5DF7E70EF9}")];
             var menu = item.Children["Menu"];
             var menuViewModel= new MenuViewModel();
@@ -33,7 +68,7 @@ namespace websitecore.Controllers
             foreach (Item i in menu.Children)
             {
                 var menuName = i.Fields["MenuTitle"].Value;
-                var menuLink = Sitecore.Context.Database.GetItem(ID).Fields["MenuTitle"].Value;
+                var menuLink = i.Fields["MenuLink"].Value;
                 var obj = new Menu()
                 {
                     MenuTitle = menuName,
@@ -64,14 +99,71 @@ namespace websitecore.Controllers
             return View();
         }
 
+        // Categories
         public ActionResult Col3TopFooter()
         {
-            return View();
+            Sitecore.Data.Items.Item item= context.Items[new ID("{110D559F-DEA5-42EA-9C1C-8A5DF7E70EF9}")];
+            var category = item.Children["Category"];
+            var categoryViewModel = new CategoryViewModel();
+            categoryViewModel.lstCategory = new List<Category>();
+            foreach (Item i in category.Children)
+            {
+                var categoryName = i.Fields["CategoryName"].Value;
+                var obj = new Category()
+                {
+                    CategoryName = categoryName,
+                };
+                categoryViewModel.lstCategory.Add(obj);
+            }
+            return View(categoryViewModel);
         }
 
         public ActionResult Col4TopFooter()
         {
             return View();
+        }
+
+        public ActionResult LastestProduct()
+        {
+            Sitecore.Data.Items.Item item = context.Items[new ID("{110D559F-DEA5-42EA-9C1C-8A5DF7E70EF9}")];
+            var product = item.Children["Product"];
+            var productViewModel = new ProductViewModel();
+            productViewModel.lstProduct = new List<Product>();
+            foreach (Item i in product.Children)
+            {
+                var productName = i.Fields["ProductName"].Value;
+                var productSum = i.Fields["ProductSum"].Value;
+                var productPrice = i.Fields["ProductPrice"].Value;
+                var productImage = GetUrl(i.Fields["ProductImage"]);
+                var productDescription = i.Fields["ProductDescription"].Value;
+                var productCategory = i.Fields["ProductCategory"].Value;
+                var obj = new Product()
+                {
+                   ProductName  = productName,
+                   ProductSum = int.Parse(productSum),
+                   ProductPrice = float.Parse(productPrice),
+                   ProductImage = productImage,
+                   ProductDescription = productDescription,
+                   ProductCategory = productCategory
+
+                };
+                productViewModel.lstProduct.Add(obj);
+            }
+            return View(productViewModel);
+        }
+
+        // GET URL IMAGE
+        public string GetUrl(Sitecore.Data.Fields.ImageField imgId)
+        {
+            var imageUrl = string.Empty;
+
+            Sitecore.Data.Fields.ImageField imageField = imgId;
+            if (imageField?.MediaItem != null)
+            {
+                var image = new MediaItem(imageField.MediaItem);
+                imageUrl = StringUtil.EnsurePrefix('/', MediaManager.GetMediaUrl(image));
+            }
+            return imageUrl;
         }
     }
 }

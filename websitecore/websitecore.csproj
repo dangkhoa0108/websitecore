@@ -165,19 +165,31 @@
     <Content Include="Views\Page\Col3TopFooter.cshtml" />
     <Content Include="Views\Page\Col4TopFooter.cshtml" />
     <Content Include="Views\Page\Menu.cshtml" />
+    <Content Include="Views\Page\LastestProduct.cshtml" />
+    <Content Include="Views\Page\Slider.cshtml" />
+    <Content Include="Views\Page\Promo.cshtml" />
+    <Content Include="Views\Page\Brand.cshtml" />
+    <Content Include="Views\Page\ProductWidget.cshtml" />
+    <Content Include="Views\Page\TopSellProduct.cshtml" />
+    <Content Include="Views\Page\RecentlyProduct.cshtml" />
+    <Content Include="Views\Page\TopNewProduct.cshtml" />
+    <Content Include="Views\Shop\Shop.cshtml" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\PageController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Menu.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\CategoryViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
+    <Compile Include="ViewModel\ProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
