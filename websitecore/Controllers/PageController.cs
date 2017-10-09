@@ -37,7 +37,23 @@ namespace websitecore.Controllers
 
         public ActionResult Brand()
         {
-            return View();
+            Sitecore.Data.Items.Item item = context.Items[new ID("{110D559F-DEA5-42EA-9C1C-8A5DF7E70EF9}")];
+            var brand = item.Children["Brand"];
+            var brandViewModel = new BrandViewModel();
+            brandViewModel.lstBrand = new List<Brand>();
+            foreach (Item i in brand.Children)
+            {
+                var brandName = i.Fields["BrandName"].Value;
+                var brandImage = GetUrl(i.Fields["Image"]);
+                var obj = new Brand()
+                {
+                    BrandName = brandName,
+                    BrandImage = brandImage
+
+                };
+                brandViewModel.lstBrand.Add(obj);
+            }
+            return View(brandViewModel);
         }
 
         public ActionResult ProductWidget()
@@ -57,6 +73,7 @@ namespace websitecore.Controllers
 
         public ActionResult TopNewProduct()
         {
+
             return View();
         }
         public ActionResult Menu()
@@ -108,9 +125,11 @@ namespace websitecore.Controllers
             categoryViewModel.lstCategory = new List<Category>();
             foreach (Item i in category.Children)
             {
+                var categoryID = i.ID.ToString();
                 var categoryName = i.Fields["CategoryName"].Value;
                 var obj = new Category()
                 {
+                    CategoryID = categoryID,
                     CategoryName = categoryName,
                 };
                 categoryViewModel.lstCategory.Add(obj);

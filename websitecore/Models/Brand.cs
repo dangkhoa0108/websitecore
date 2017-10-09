@@ -5,9 +5,9 @@ using System.Web;
 
 namespace websitecore.Models
 {
-    public class Category
+    public class Brand
     {
-        public string CategoryID { get; set; }
-        public string CategoryName { get; set; }
+        public string BrandName { get; set; }
+        public string BrandImage { get; set; }
     }
 }

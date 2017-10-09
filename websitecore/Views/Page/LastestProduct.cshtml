@@ -25,7 +25,7 @@
                                 </h2>
 
                                 <div class="product-carousel-price">
-                                    <ins>@item.ProductPrice</ins>
+                                    <ins>@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", item.ProductPrice)</ins>
                                 </div>
                             </div>
                         }

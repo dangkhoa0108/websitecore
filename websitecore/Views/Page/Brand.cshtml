@@ -1,4 +1,4 @@
-﻿
+﻿@model websitecore.ViewModel.BrandViewModel
 @{
     Layout = null;
 }
@@ -10,14 +10,10 @@
             <div class="col-md-12">
                 <div class="brand-wrapper">
                     <div class="brand-list">
-                        <img src="~/Content/img/brand1.png" alt="">
-                        <img src="~/Content/img/brand2.png" alt="">
-                        <img src="~/Content/img/brand3.png" alt="">
-                        <img src="~/Content/img/brand4.png" alt="">
-                        <img src="~/Content/img/brand5.png" alt="">
-                        <img src="~/Content/img/brand6.png" alt="">
-                        <img src="~/Content/img/brand1.png" alt="">
-                        <img src="~/Content/img/brand2.png" alt="">
+                        @foreach (var item in Model.lstBrand)
+                        {
+                            <img src="@item.BrandImage" alt="">
+                        }
                     </div>
                 </div>
             </div>
