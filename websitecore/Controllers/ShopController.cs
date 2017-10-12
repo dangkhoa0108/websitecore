@@ -26,6 +26,7 @@ namespace websitecore.Controllers
             productViewModel.lstProduct = new List<Product>();
             foreach (Item i in product.Children)
             {
+                var productId = i.ID.ToString();
                 var productName = i.Fields["ProductName"].Value;
                 var productSum = i.Fields["ProductSum"].Value;
                 var productPrice = i.Fields["ProductPrice"].Value;
@@ -34,6 +35,7 @@ namespace websitecore.Controllers
                 var productCategory = i.Fields["ProductCategory"].Value;               
                 productViewModel.lstProduct.Add(new Product()
                 {
+                    ProductID = productId,
                     ProductName = productName,
                     ProductSum = int.Parse(productSum),
                     ProductPrice = float.Parse(productPrice),
@@ -58,14 +60,9 @@ namespace websitecore.Controllers
             return imageUrl;
         }
 
-        public ActionResult DetailProduct()
-        {
-            return View();
-        }
 
-
-        //GET PRODUCT BY CATEGORY
-        public ActionResult ProductByCategory(string id)
+        //GET PRODUCT BY CATEGORY ID
+        public ActionResult ProductByCategory(string Id)
         {
             Sitecore.Data.Items.Item item = context.Items[new ID("{110D559F-DEA5-42EA-9C1C-8A5DF7E70EF9}")];
             string categoryName=null;
@@ -73,7 +70,7 @@ namespace websitecore.Controllers
             foreach (Item categories in category.Children)
             {
                 string categoryId = categories.ID.ToString();
-                if (categoryId.Equals(id))
+                if (categoryId.Equals(Id)|| Id.Equals(categories.Fields["CategoryName"].ToString()))
                 {
                     categoryName = categories.Fields["CategoryName"].ToString();
                     break;
@@ -86,6 +83,7 @@ namespace websitecore.Controllers
             {           
                 if (i.Fields["ProductCategory"].ToString()==categoryName)
                 {
+                    var productId = i.ID.ToString();
                     var productName = i.Fields["ProductName"].Value;
                     var productSum = i.Fields["ProductSum"].Value;
                     var productPrice = i.Fields["ProductPrice"].Value;
@@ -94,6 +92,7 @@ namespace websitecore.Controllers
                     var productCategory = i.Fields["ProductCategory"].Value;
                     productViewModel.lstProduct.Add(new Product()
                     {
+                        ProductID = productId,
                         ProductName = productName,
                         ProductSum = int.Parse(productSum),
                         ProductPrice = float.Parse(productPrice),
@@ -102,6 +101,82 @@ namespace websitecore.Controllers
                         ProductCategory = productCategory
                     });
                 }              
+            }
+            return View(productViewModel);
+        }
+
+        public ActionResult DetailProduct()
+        {
+            return View();
+        }
+
+        public ActionResult Search(string name)
+        {
+            ViewBag.name = name;
+            name = name.ToLower();
+            Sitecore.Data.Items.Item item = context.Items[new ID("{110D559F-DEA5-42EA-9C1C-8A5DF7E70EF9}")];
+            var detailProduct = item.Children["Product"];
+            var productViewModel = new ProductViewModel();
+            productViewModel.lstProduct = new List<Product>();
+            foreach (Item i in detailProduct.Children)
+            {
+                if (i.Fields["ProductName"].ToString().ToLower().Contains(name))
+                {
+                    var productId = i.ID.ToString();
+                    var productName = i.Fields["ProductName"].Value;
+                    var productSum = i.Fields["ProductSum"].Value;
+                    var productPrice = i.Fields["ProductPrice"].Value;
+                    var productImage = GetUrl(i.Fields["ProductImage"]);
+                    var productDescription = i.Fields["ProductDescription"].Value;
+                    var productCategory = i.Fields["ProductCategory"].Value;
+                    productViewModel.lstProduct.Add(new Product()
+                    {
+                        ProductID = productId,
+                        ProductName = productName,
+                        ProductSum = int.Parse(productSum),
+                        ProductPrice = float.Parse(productPrice),
+                        ProductImage = productImage,
+                        ProductDescription = productDescription,
+                        ProductCategory = productCategory
+                    });
+                }
+            }
+            return View(productViewModel);
+        }
+
+        public ActionResult SideBarProduct()
+        {
+            return View();
+        }
+
+        public ActionResult ContentProduct(string id)
+        {
+            Sitecore.Data.Items.Item item = context.Items[new ID("{110D559F-DEA5-42EA-9C1C-8A5DF7E70EF9}")];
+            var detailProduct = item.Children["Product"];
+            var productViewModel = new ProductViewModel();
+            productViewModel.lstProduct = new List<Product>();
+            foreach (Item i in detailProduct.Children)
+            {
+                if (i.ID.ToString() == id)
+                {
+                    var productId = i.ID.ToString();
+                    var productName = i.Fields["ProductName"].Value;
+                    var productSum = i.Fields["ProductSum"].Value;
+                    var productPrice = i.Fields["ProductPrice"].Value;
+                    var productImage = GetUrl(i.Fields["ProductImage"]);
+                    var productDescription = i.Fields["ProductDescription"].Value;
+                    var productCategory = i.Fields["ProductCategory"].Value;
+                    productViewModel.lstProduct.Add(new Product()
+                    {
+                        ProductID = productId,
+                        ProductName = productName,
+                        ProductSum = int.Parse(productSum),
+                        ProductPrice = float.Parse(productPrice),
+                        ProductImage = productImage,
+                        ProductDescription = productDescription,
+                        ProductCategory = productCategory
+                    });
+                }
             }
             return View(productViewModel);
         }

@@ -150,6 +150,7 @@ namespace websitecore.Controllers
             productViewModel.lstProduct = new List<Product>();
             foreach (Item i in product.Children)
             {
+                var productId = i.ID.ToString();
                 var productName = i.Fields["ProductName"].Value;
                 var productSum = i.Fields["ProductSum"].Value;
                 var productPrice = i.Fields["ProductPrice"].Value;
@@ -158,6 +159,7 @@ namespace websitecore.Controllers
                 var productCategory = i.Fields["ProductCategory"].Value;
                 var obj = new Product()
                 {
+                   ProductID = productId,
                    ProductName  = productName,
                    ProductSum = int.Parse(productSum),
                    ProductPrice = float.Parse(productPrice),

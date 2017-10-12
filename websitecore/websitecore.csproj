@@ -182,10 +182,15 @@
     <Content Include="Views\Shop\Shop.cshtml" />
     <Content Include="Views\Shop\DetailProduct.cshtml" />
     <Content Include="Views\Shop\ProductByCategory.cshtml" />
+    <Content Include="Views\Contact\Contact.cshtml" />
+    <Content Include="Views\Shop\Search.cshtml" />
+    <Content Include="Views\Shop\SideBarProduct.cshtml" />
+    <Content Include="Views\Shop\ContentProduct.cshtml" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
