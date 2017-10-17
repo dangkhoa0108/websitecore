@@ -60,6 +60,24 @@
     <Reference Include="Sitecore.Mvc">
       <HintPath>..\..\..\sitecore\Website\bin\Sitecore.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Sitecore.WFFM">
+      <HintPath>..\..\..\sitecore\Website\bin\Sitecore.WFFM.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.WFFM.Abstractions">
+      <HintPath>..\..\..\sitecore\Website\bin\Sitecore.WFFM.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.WFFM.Actions">
+      <HintPath>..\..\..\sitecore\Website\bin\Sitecore.WFFM.Actions.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.WFFM.Analytics">
+      <HintPath>..\..\..\sitecore\Website\bin\Sitecore.WFFM.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.WFFM.Services">
+      <HintPath>..\..\..\sitecore\Website\bin\Sitecore.WFFM.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.WFFM.Update">
+      <HintPath>..\..\..\sitecore\Website\bin\Sitecore.WFFM.Update.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -193,6 +211,7 @@
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="CustomAction\DemoCustomAction.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

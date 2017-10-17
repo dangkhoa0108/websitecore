@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Sitecore;
 using Sitecore.Data;
 using Sitecore.Data.Items;
@@ -18,7 +19,20 @@ namespace websitecore.Controllers
         // GET: Page
         public ActionResult Header()
         {
-            return View();
+            Session["auth"] = null;
+            FormsAuthenticationTicket authTicket = null;
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];//.ASPXAUTH
+            if (authCookie != null)
+            {
+                authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                if (authTicket != null) Session["autho"] = authTicket.Name;
+            }
+            //string email = null;
+            //if (authTicket != null)
+            //{
+            //    email = authTicket.Name;
+            //}
+            return View("");
         }
 
         public ActionResult Slider()

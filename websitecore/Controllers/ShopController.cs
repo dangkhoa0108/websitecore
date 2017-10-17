@@ -17,34 +17,18 @@ namespace websitecore.Controllers
     public class ShopController : Controller
     {
         Sitecore.Data.Database context = Sitecore.Context.Database;
-        // GET: Shop
-        public ActionResult Shop()
+        private static void AddToViewModel(ProductViewModel productViewModel, string productId, string productName, string productSum, string productPrice, string productImage, string productDescription, string productCategory)
         {
-            Sitecore.Data.Items.Item item = context.Items[new ID("{110D559F-DEA5-42EA-9C1C-8A5DF7E70EF9}")];
-            var product = item.Children["Product"];
-            var productViewModel = new ProductViewModel();
-            productViewModel.lstProduct = new List<Product>();
-            foreach (Item i in product.Children)
+            productViewModel.lstProduct.Add(new Product()
             {
-                var productId = i.ID.ToString();
-                var productName = i.Fields["ProductName"].Value;
-                var productSum = i.Fields["ProductSum"].Value;
-                var productPrice = i.Fields["ProductPrice"].Value;
-                var productImage = GetUrl(i.Fields["ProductImage"]);
-                var productDescription = i.Fields["ProductDescription"].Value;
-                var productCategory = i.Fields["ProductCategory"].Value;               
-                productViewModel.lstProduct.Add(new Product()
-                {
-                    ProductID = productId,
-                    ProductName = productName,
-                    ProductSum = int.Parse(productSum),
-                    ProductPrice = float.Parse(productPrice),
-                    ProductImage = productImage,
-                    ProductDescription = productDescription,
-                    ProductCategory = productCategory
-                });              
-            }
-            return View(productViewModel);
+                ProductID = productId,
+                ProductName = productName,
+                ProductSum = int.Parse(productSum),
+                ProductPrice = float.Parse(productPrice),
+                ProductImage = productImage,
+                ProductDescription = productDescription,
+                ProductCategory = productCategory
+            });
         }
         // GET URL IMAGE
         public string GetUrl(Sitecore.Data.Fields.ImageField imgId)
@@ -60,6 +44,26 @@ namespace websitecore.Controllers
             return imageUrl;
         }
 
+        // GET: Shop
+        public ActionResult Shop()
+        {
+            Sitecore.Data.Items.Item item = context.Items[new ID("{110D559F-DEA5-42EA-9C1C-8A5DF7E70EF9}")];
+            var product = item.Children["Product"];
+            var productViewModel = new ProductViewModel();
+            productViewModel.lstProduct = new List<Product>();
+            foreach (Item i in product.Children)
+            {
+                var productId = i.ID.ToString();
+                var productName = i.Fields["ProductName"].Value;
+                var productSum = i.Fields["ProductSum"].Value;
+                var productPrice = i.Fields["ProductPrice"].Value;
+                var productImage = GetUrl(i.Fields["ProductImage"]);
+                var productDescription = i.Fields["ProductDescription"].Value;
+                var productCategory = i.Fields["ProductCategory"].Value;
+                AddToViewModel(productViewModel, productId, productName, productSum, productPrice, productImage, productDescription, productCategory);
+            }
+            return View(productViewModel);
+        }
 
         //GET PRODUCT BY CATEGORY ID
         public ActionResult ProductByCategory(string Id)
@@ -90,16 +94,7 @@ namespace websitecore.Controllers
                     var productImage = GetUrl(i.Fields["ProductImage"]);
                     var productDescription = i.Fields["ProductDescription"].Value;
                     var productCategory = i.Fields["ProductCategory"].Value;
-                    productViewModel.lstProduct.Add(new Product()
-                    {
-                        ProductID = productId,
-                        ProductName = productName,
-                        ProductSum = int.Parse(productSum),
-                        ProductPrice = float.Parse(productPrice),
-                        ProductImage = productImage,
-                        ProductDescription = productDescription,
-                        ProductCategory = productCategory
-                    });
+                    AddToViewModel(productViewModel, productId, productName, productSum, productPrice, productImage, productDescription, productCategory);
                 }              
             }
             return View(productViewModel);
@@ -129,16 +124,7 @@ namespace websitecore.Controllers
                     var productImage = GetUrl(i.Fields["ProductImage"]);
                     var productDescription = i.Fields["ProductDescription"].Value;
                     var productCategory = i.Fields["ProductCategory"].Value;
-                    productViewModel.lstProduct.Add(new Product()
-                    {
-                        ProductID = productId,
-                        ProductName = productName,
-                        ProductSum = int.Parse(productSum),
-                        ProductPrice = float.Parse(productPrice),
-                        ProductImage = productImage,
-                        ProductDescription = productDescription,
-                        ProductCategory = productCategory
-                    });
+                    AddToViewModel(productViewModel, productId, productName, productSum, productPrice, productImage, productDescription, productCategory);
                 }
             }
             return View(productViewModel);
@@ -166,16 +152,7 @@ namespace websitecore.Controllers
                     var productImage = GetUrl(i.Fields["ProductImage"]);
                     var productDescription = i.Fields["ProductDescription"].Value;
                     var productCategory = i.Fields["ProductCategory"].Value;
-                    productViewModel.lstProduct.Add(new Product()
-                    {
-                        ProductID = productId,
-                        ProductName = productName,
-                        ProductSum = int.Parse(productSum),
-                        ProductPrice = float.Parse(productPrice),
-                        ProductImage = productImage,
-                        ProductDescription = productDescription,
-                        ProductCategory = productCategory
-                    });
+                    AddToViewModel(productViewModel, productId, productName, productSum, productPrice, productImage, productDescription, productCategory);
                 }
             }
             return View(productViewModel);
